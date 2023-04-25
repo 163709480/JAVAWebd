@@ -3,4 +3,76 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    
+
+<context-param>
+    <param-name>drive</param-name>
+    <param-value>com.sun.accessibility.internal</param-value>
+</context-param>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>context</param-value>
+    </context-param>
+
+
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>HelloServlet2</servlet-name>
+        <servlet-class>HelloServlet2</servlet-class>
+        <init-param>
+            <param-name>username</param-name>
+            <param-value>root</param-value>
+        </init-param>
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:mysql://localhost:3306/test</param-value>
+        </init-param>
+
+    </servlet>
+   <servlet-mapping>
+       <servlet-name>HelloServlet2</servlet-name>
+       <url-pattern>/hell</url-pattern>
+   </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>contextServlet</servlet-name>
+        <servlet-class>contextServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>contextServlet</servlet-name>
+        <url-pattern>/cont</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>ContextServlet1</servlet-name>
+        <servlet-class>ContextServlet1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContextServlet1</servlet-name>
+        <url-pattern>/con1</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>HelloServlet3</servlet-name>
+        <servlet-class>HelloServlet3</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloServlet3</servlet-name>
+        <url-pattern>/he</url-pattern>
+    </servlet-mapping>
 </web-app>
