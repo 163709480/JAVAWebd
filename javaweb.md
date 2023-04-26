@@ -200,3 +200,103 @@ ServletContext context = getServletContext();
         System.out.println("context1获取数据key1的值是+"+context.getAttribute("key1"));
 //更换另一个context类仍然可以获取到Key1
 ```
+
+
+
+### Http协议
+
+​	什么是协议？
+
+​		协议是指双方，或多方，相互约定好，大家都需要遵守的规则，叫协议
+
+所谓HTTP协议就是指，客户端和服务器之间通信时，发送的数据，需要遵守的规则，叫HTTP协议
+
+Http协议中的数据又叫报文
+
+##### b)请求的HTTP协议格式
+
+​	1.GET请求
+
+​			1.请求行
+
+​					(1)请求的方式					GET	
+
+​					(2)请求的资源路径[+?+请求参数]
+
+​				    (3)请求的协议版本号        HTTP/1.1
+
+2.请求头
+
+![](C:\Users\Administrator\Desktop\MYsql\web.PNG)
+
+2.POST	
+
+ 1、请求行
+
+​			         (1)请求的方式					GET	
+
+​					(2)请求的资源路径[+?+请求参数]
+
+​				    (3)请求的协议版本号        HTTP/1.1
+
+   2、  请求头
+
+​				1)key :value     不同的请求头，有不同的含义
+
+​				==空行==
+
+​     请求体
+
+
+
+
+
+1. 常用请求头的说明
+
+> Accept:表示客户端可以接受的数据类型
+>
+> Accept-Languege：表示客户端可以接受的语言类型
+>
+> User-Agent:表示客户端浏览
+>
+> Host:表示请求时的服务器ip和端口号
+
+- 那些是GET请求，哪些是POST请求
+
+  <u>GET请求有哪些</u>
+
+  > 1.from标签 method=get
+  >
+  > 2.a标签
+  >
+  > 3.link标签引入css
+  >
+  > 4.Script标签引入Js文件
+  >
+  > 5.img标签引入图片
+  >
+  > 6.iframe引入html
+  >
+  > 7.在浏览器地址栏中输入地址敲回车
+
+POST请求有哪些？
+
+> 8、form标签 method=post
+
+##### c)响应的HTTP协议格式
+
+1.响应行
+
+​			(1)响应的协议和版本号      HTTP/1.1
+
+​			(2)响应状态码                        200
+
+​			(3)响应状态描述符                    ok
+
+ 2.响应头
+
+​	（1）key :value 不同的响应头，有其不同含义
+
+​		==空行==
+
+3.响应体----->>>   就是回传给客户端的数据
