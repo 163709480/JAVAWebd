@@ -74,7 +74,7 @@ a.html不要放在WEB-ING当中
 >
 > 3.到web.xml中的配置Servlet程序的访问地址
 
-
+![
 
 ##### HttpServlet抽象类
 
@@ -300,3 +300,212 @@ POST请求有哪些？
 ​		==空行==
 
 3.响应体----->>>   就是回传给客户端的数据
+
+
+
+
+
+
+
+### HttpServletRequest类
+
+每次只要有请求进入Tomcat服务器，Tomcat服务器就会把请求过来的HTTP协议信息解析好封装到Requkest对象中。然后传递到service方法(doGet和doPost)中给我们使用，我们可以通过HttpServletRequest对象，获取到所有请求的信息
+
+
+
+> i   getReaquestURI()    获取请求的资源路径
+>
+> i  getRequestURL()      获取请求的统一资源定位符(绝对路径)
+>
+> iii.    getRemoteHost()   获取客户端的ip地址
+>
+> getHeader()           	获取请求头
+>
+> getParameter()					获取请求的参数
+>
+> getParameterValues() 	 获取请求的参数(多个值的时候使用)
+>
+> getMethod()   					获取请求方式GET或POST
+>
+> setAttribute(key,value)     设置域数据
+>
+> getRequestDispatcher()    获取请求转发对象
+
+
+
+```java
+// i.getRequestURI()     获取请求的资源路径
+        System.out.println("URI=>+"+req.getRequestURI());
+        // i.getRequestURL()      获取请求的统一资源定位符(绝对路径)
+        System.out.println("URL =>+"+req.getRequestURL());
+        //i.getRemoteHost()        获取客户端的ip地址
+        System.out.println("客户端口IP地址"+req.getRemoteHost());
+
+
+
+
+        //i.getHeader()             获取请求头
+        System.out.println("请求头User-Agent"+req.getHeader("User-Agent"));
+        //i.getMethod()             获取请求的方式GET或POST
+        System.out.println("请求方式"+req.getMethod());
+
+```
+
+
+
+##### e)请求的转发
+
+什么是请求的转发
+
+请求转发是指，服务器收到请求后，从一个资源跳转到另一个资源的操作叫做转发
+
+
+
+
+
+
+
+
+
+
+
+##### f)base标签的作用
+
+
+
+![](C:\Users\Administrator\Desktop\MYsql\base标签.PNG)
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <base href="http://localhost:8080/demo_war_exploded/index.jsp">
+</head>
+<body>
+
+这是webapp下的路径
+<a href="index.jsp">跳转首页</a>
+<a href="a/b/c.html">form.html</a><br/>
+<a href="../../index.jsp">form.html</a><br/>
+</body>
+</html>
+```
+
+
+
+
+
+##### g)Web中的相对路径和绝对路径
+
+​	在javaweb中，路径分为相对路径和绝对路径两种：
+
+​	相对路径是		；
+
+​        .								表示当前目录
+
+​		..  							  表示上一句目录
+
+​        资源名						表示当前目录/资源名
+
+
+
+  绝对路径：
+
+​				http://ip:port/工程路径/资源路径
+
+##### h)Web中 /斜杠的不同意义
+
+   在web中 / 斜杠 是一种绝对路径
+
+​		/  斜杠  如何被浏览器解析，得到的地址是：http://ip:port/
+
+​				<a href="/">斜杠< ?/a>
+
+​		/斜杠 如何被服务器解析，得到的地址是:http://ip:port/工程路径
+
+​           1.<url-pattern>/servlet1</url-pattern>
+
+​			2.Servletcontext.getRealPath("/");
+
+   3. ​      request.getRequestDispatcher("/")
+
+      特殊情况  response.sendRediect("/")  斜杠发送给浏览器解析
+
+### 2.HttpServletResponse类
+
+##### a)HttpServletResponse类的作用
+
+HttpservletResponse类和HttpServletRequest类一样。每次请求进来,Tomcat服务器都会创建一个Response对象传递给Servlet程序去使用。httpServlerRuest表示请求过来的信息,HttpServletResponse表示所有响应的信息,我们如果需要设置返回给客户端的消息,都可以通过HttpServlertResponse对象来进行设置
+
+##### b)两个输出流的说明。
+
+​		字节流         getOutputStream();    常用于下载(传递二进制数据)
+
+​		字符流          getWriter();					常用于回传字符串(常用)
+
+两个流同时只能使用一个
+
+使用了字节流。就不能再使用字符流，反之亦然，否则就会报错。
+
+##### c)如何往客户端回传数据
+
+要求往客户端回传字符串数据
+
+```java
+ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter writer = resp.getWriter();
+        writer.print("response  content");
+
+
+    }
+```
+
+
+
+##### d)响应的乱码解决
+
+
+
+```java
+//设置服务器字符集为UTF-8
+        resp.setCharacterEncoding("UTF-8");
+  第一种方法  resp.setContentType("text/html;charset=UTF-8");
+        //它会同时设置服务器和客户端都是用UTF-8
+        //此方法一定要在获取流对象之前调用才有效
+   第二章   resp.setHeader("Content-Type","text/html;charset=UTF-8");
+
+        //通过响应头设置浏览器也使用UTF-8字符集，还设置了响应头
+
+
+
+        System.out.println(resp.getCharacterEncoding());
+        PrintWriter writer = resp.getWriter();
+        writer.print("你好 顶顶顶顶顶");
+```
+
+##### e)请求重定向
+
+​			请求重定向，是指客户端给服务器发送请求，然后服务器告诉客户端说。我给你一些地址。你去新地址访问。叫请求重定向(因为之前的地址可能已经被废弃)
+
+> 有义务告诉客户端，我已搬迁==》》响应码  302
+>
+> 并且告知新的地址  ==>>			响应头Location
+>
+> ​       <<====响应状态码  302
+>
+> ​					Location 响应头，新地址
+
+
+
+![](C:\Users\Administrator\Desktop\MYsql\请求重定向.PNG)
+
+请求重定向的特点：
+
+​		1.浏览器地址栏会发生变化
+
+​		 2.两次请求
+
+​          3.不共享Request域中数据（两个Request域）
+
+​		4.不能访问WEB-INF下的资源
